@@ -326,8 +326,4 @@ class HBaseSaltTestShutdown (args: Args) extends JobBase(args) with HBasePipeCon
         TABLE_SCHEMA.tail.map((x: Symbol) => "data"),
         TABLE_SCHEMA.tail.map((x: Symbol) => new Fields(x.name)), sinkMode = SinkMode.REPLACE ))
   }
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> 21e3f4d74f828378ae735f0533332ef481769af5
