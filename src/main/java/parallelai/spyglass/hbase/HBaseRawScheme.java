@@ -69,9 +69,12 @@ public class HBaseRawScheme extends Scheme<JobConf, RecordReader, OutputCollecto
 
 	/** Field LOG */
 	private static final Logger LOG = LoggerFactory.getLogger(HBaseRawScheme.class);
+	private Class<?> tableInputFormat = org.apache.hadoop.hbase.mapreduce.TableInputFormat.class;
+
 
 	public final Fields RowKeyField = new Fields("rowkey");
 	public final Fields RowField = new Fields("row");
+
 
 	/** String familyNames */
 	private String[] familyNames;
@@ -101,6 +104,8 @@ public class HBaseRawScheme extends Scheme<JobConf, RecordReader, OutputCollecto
 		this.writeNulls = writeNulls;
 		setSourceFields();
 	}
+
+	public void setTableInputFormatClass(Class<?> clazz) { tableInputFormat = clazz;}
 
 	private void setSourceFields() {
 		Fields sourceFields = Fields.join(RowKeyField, RowField);
@@ -244,14 +249,14 @@ public class HBaseRawScheme extends Scheme<JobConf, RecordReader, OutputCollecto
 	public void sourceConfInit(FlowProcess<JobConf> process, Tap<JobConf, RecordReader, OutputCollector> tap,
 			JobConf conf) {
 
-		DeprecatedInputFormatWrapper.setInputFormat(org.apache.hadoop.hbase.mapreduce.TableInputFormat.class, conf,
-				ValueCopier.class);
+		DeprecatedInputFormatWrapper.setInputFormat(tableInputFormat, conf, ValueCopier.class);
 		if (null != familyNames) {
 			String columns = Util.join(this.familyNames, " ");
 			LOG.debug("sourcing from column families: {}", columns);
 			conf.set(org.apache.hadoop.hbase.mapreduce.TableInputFormat.SCAN_COLUMNS, columns);
-		}
-	}
+		}	
+
+}
 
 	@Override
 	public boolean equals(Object object) {
