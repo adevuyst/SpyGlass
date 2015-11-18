@@ -11,7 +11,7 @@
     <name>Cascading and Scalding wrapper for HBase with advanced features</name>
     <groupId>parallelai</groupId>
     <artifactId>parallelai.spyglass</artifactId>
-    <version>2.11_0.15.0_0.1.0</version>
+    <version>2.11_0.15.0_hdp23_0.1.0</version>
     <packaging>jar</packaging>
 
     <properties>
@@ -30,9 +30,11 @@
         <maven-source-plugin.version>2.4</maven-source-plugin.version>
         <maven.surefire.plugin.version>2.12.3</maven.surefire.plugin.version>
 
-        <hadoop.version>2.6.0</hadoop.version>
-        <hadoop.core.version>2.6.0</hadoop.core.version>
-        <hbase.version>0.98.4-hadoop2</hbase.version>
+        <hadoop.version>2.7.1</hadoop.version>
+        <hadoop.core.version>2.7.1</hadoop.core.version>
+	<hadoop.client.version>2.7.1</hadoop.client.version>
+        <hbase.version>1.1.2</hbase.version>
+	<zookeeper.version>3.4.6</zookeeper.version>
 
         <joda-time.version>2.8.2</joda-time.version>
 
@@ -70,11 +72,6 @@
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
         <repository>
-            <id>cloudera-cdh4</id>
-            <name>Cloudera CDH4</name>
-            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
-        </repository>
-        <repository>
             <id>conjars</id>
             <name>Con Jars</name>
             <url>http://conjars.org/repo</url>
@@ -103,7 +100,7 @@
                 <dependency>
                     <groupId>jdk.tools</groupId>
                     <artifactId>jdk.tools</artifactId>
-                    <version>1.6</version>
+                    <version>1.7</version>
                     <scope>system</scope>
                     <systemPath>${toolsjar}</systemPath>
                 </dependency>
@@ -124,7 +121,7 @@
                 <dependency>
                     <groupId>jdk.tools</groupId>
                     <artifactId>jdk.tools</artifactId>
-                    <version>1.6</version>
+                    <version>1.7</version>
                     <scope>system</scope>
                     <systemPath>${toolsjar}</systemPath>
                 </dependency>
@@ -170,6 +167,29 @@
             <artifactId>hbase-server</artifactId>
             <version>${hbase.version}</version>
         </dependency>
+
+	<dependency>
+	 <groupId>org.apache.hbase</groupId>
+	 <artifactId>hbase-common</artifactId>
+	 <version>${hbase.version}</version>
+	</dependency>
+
+	<dependency>
+	  <groupId>org.apache.hbase</groupId>
+	  <artifactId> hbase-hadoop2-compat</artifactId>
+	  <version>${hbase.version}</version>
+	</dependency>
+	<dependency>
+	  <groupId>org.apache.hbase</groupId>
+	  <artifactId> hbase-hadoop-compat</artifactId>
+	  <version>${hbase.version}</version>
+	</dependency>
+
+	<dependency>
+	 <groupId>org.apache.zookeeper</groupId>
+	 <artifactId>zookeeper</artifactId>
+	 <version>${zookeeper.version}</version>
+	</dependency>
 
         <dependency>
             <groupId>org.slf4j</groupId>
